@@ -138,5 +138,5 @@ To test , use the following JSON body in Postman:
   "password": "$2a$10$iawRIG8kOksY6bK2GCcEXeaSwgYZxMot9TtvsX4v2xd2DOEudnBl6",
   "role": "ADMIN"
   }
-  }
+
 ```
