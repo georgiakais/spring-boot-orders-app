@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <style>
+        .logout {
+            float: right;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Dashboard</h1>
+
+<!-- Logout button -->
+<a href="#" class="logout" th:href="@{/logout}">Logout</a>
+
+<h2>Welcome, <span th:text="${username}"></span>!</h2>
+
+<!-- Display client count if the user is an admin -->
+<div th:if="${dashboardData.clientCount != null}">
+    <h3>You manage <span th:text="${dashboardData.clientCount}"></span> clients.</h3>
+</div>
+
+<!-- Admin View: Display all orders if the user is an admin -->
+<div th:if="${dashboardData.orders != null and dashboardData.clientCount != null}">
+    <h3>All Orders:</h3>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Amount (€)</th>
+            <th>Quantity</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${dashboardData.orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.createdAt}"></td>
+            <td th:text="${order.amount}"></td>
+            <td th:text="${order.quantity}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Total Amount: <span th:text="${dashboardData.totalAmount}"></span> €</h3>
+</div>
+
+<!-- User View: Display only user's own orders -->
+<div th:if="${dashboardData.orders != null and dashboardData.clientCount == null}">
+    <h3>Your Orders:</h3>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Date</th>
+            <th>Amount (€)</th>
+            <th>Quantity </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${dashboardData.orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.createdAt}"></td>
+            <td th:text="${order.amount}"></td>
+            <td th:text="${order.quantity}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Total Amount: <span th:text="${dashboardData.totalAmount}"></span> €</h3>
+</div>
+
+</body>
+</html>
